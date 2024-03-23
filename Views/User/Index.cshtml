@@ -1,0 +1,41 @@
+@model IEnumerable<Collection.Models.User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Användare</h1>
+
+<p>
+    <a asp-action="Create">Skapa ny</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Namn
+            </th>
+            <th>
+                Telefonnummer 
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelephoneNr)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Redigera</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Information</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Radera</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

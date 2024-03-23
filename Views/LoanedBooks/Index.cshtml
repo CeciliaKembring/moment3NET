@@ -1,0 +1,53 @@
+@model IEnumerable<Collection.Models.LoanedBooks>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lån av böcker</h1>
+
+<p>
+    <a asp-action="Create">Låna bok</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Lånedatum
+            </th>
+            <th>
+                Returdatum
+            </th>
+            <th>
+                Användare
+            </th>
+            <th>
+                Bok
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoanDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Title)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Redigera</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Information</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Radera</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

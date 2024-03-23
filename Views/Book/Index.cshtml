@@ -1,0 +1,70 @@
+@model IEnumerable<Collection.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Böcker</h1>
+
+<p>
+    <a asp-action="Create">Skapa ny</a>
+</p>
+
+<form method="get" action="@Url.Action("Index", "Book")">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="searchString" placeholder="Sök efter titel">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Sök</button>
+        </div>
+    </div>
+</form>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Titel
+            </th>
+            <th>
+                Genre
+            </th>
+            <th>
+                Författare
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Redigera</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Information</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Radera</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
