@@ -275,3 +275,4 @@
 /Users/ADamHolmberg/Collection/obj/Debug/net8.0/Collection.pdb
 /Users/ADamHolmberg/Collection/obj/Debug/net8.0/Collection.genruntimeconfig.cache
 /Users/ADamHolmberg/Collection/obj/Debug/net8.0/ref/Collection.dll
+/Users/ADamHolmberg/Collection/obj/Debug/net8.0/Collection.sourcelink.json

@@ -156,14 +156,13 @@ public async Task<IActionResult> Create([Bind("ID,LoanDate,ReturnDate,BookID,Use
         }
 
 // POST: LoanedBooks/Delete/5
-[HttpPost, ActionName("Delete")]
+[HttpDelete, ActionName("Delete")]
 [ValidateAntiForgeryToken]
 
 private bool LoanedBooksExists(int id)
 {
     return _context.LoanedBooks.Any(e => e.ID == id);
 }
-
 public async Task<IActionResult> DeleteConfirmed(int id)
 {
     var loanedBooks = await _context.LoanedBooks.FindAsync(id);
@@ -172,18 +171,16 @@ public async Task<IActionResult> DeleteConfirmed(int id)
         var book = await _context.Books.FindAsync(loanedBooks.BookID);
         if (book != null)
         {
-       
             book.Status = "i lager";
             _context.Update(book);
         }
 
         _context.LoanedBooks.Remove(loanedBooks);
+        await _context.SaveChangesAsync(); 
     }
 
-    await _context.SaveChangesAsync();
     return RedirectToAction(nameof(Index));
 }
-
 
     }
 }

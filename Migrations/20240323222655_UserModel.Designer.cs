@@ -3,6 +3,7 @@ using System;
 using Collection.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Collection.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240323222655_UserModel")]
+    partial class UserModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
@@ -115,8 +118,7 @@ namespace Collection.Migrations
                 {
                     b.HasOne("Collection.Models.Author", "Author")
                         .WithMany("Book")
-                        .HasForeignKey("AuthorID")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("AuthorID");
 
                     b.Navigation("Author");
                 });
