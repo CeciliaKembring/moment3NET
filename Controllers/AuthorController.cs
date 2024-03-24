@@ -133,30 +133,20 @@ namespace Collection.Controllers
 
             return View(author);
         }
-// POST: Author/Delete/5
-[HttpPost, ActionName("Delete")]
-[ValidateAntiForgeryToken]
-private bool AuthorExists(int id)
-{
-    return _context.Authors.Any(e => e.ID == id);
-}
 
+     [HttpPost, ActionName("Delete")]
+[ValidateAntiForgeryToken]
 public async Task<IActionResult> DeleteConfirmed(int id)
 {
-    var author = await _context.Authors
-        .FirstOrDefaultAsync(a => a.ID == id);
-
+    var author = await _context.Authors.FindAsync(id);
     if (author == null)
     {
         return NotFound();
     }
 
-    // Ta bort författarens böcker
-    var books = await _context.Books
-        .Where(b => b.AuthorID == id)
-        .ToListAsync();
-
-    _context.Books.RemoveRange(books);
+    // Hämta alla böcker som tillhör författaren och ta bort dem
+    var booksToDelete = await _context.Books.Where(b => b.AuthorID == id).ToListAsync();
+    _context.Books.RemoveRange(booksToDelete);
 
     // Ta bort författaren
     _context.Authors.Remove(author);
@@ -166,4 +156,9 @@ public async Task<IActionResult> DeleteConfirmed(int id)
 }
 
 
-}}
+        private bool AuthorExists(int id)
+        {
+            return _context.Authors.Any(e => e.ID == id);
+        }
+    }
+}
