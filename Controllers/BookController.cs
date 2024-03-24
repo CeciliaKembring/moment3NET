@@ -97,7 +97,7 @@ namespace Collection.Controllers
             {
                 return NotFound();
             }
-            ViewData["AuthorID"] = new SelectList(_context.Authors, "ID", "ID", book.AuthorID);
+            ViewData["AuthorID"] = new SelectList(_context.Authors, "ID", "Name", book.AuthorID);
             return View(book);
         }
 
